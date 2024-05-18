@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"scorehandling/backend/models"
 
 	"github.com/gorilla/websocket"
 )
@@ -44,23 +45,19 @@ func wsEndpoint(w http.ResponseWriter, r *http.Request) {
 	reader(ws)
 }
 
-func renderTemplate(file string, w http.ResponseWriter,r *http.Request,data interface{}) {
-	http.ServeFile(w, r,file)
+func renderTemplate(file string, w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, file)
 }
 
 func launchGame(w http.ResponseWriter, r *http.Request) {
-	renderTemplate("../frontend/index.html",w,r,nil)
+	renderTemplate("../frontend/index.html", w, r)
 }
 
 func main() {
-	jsScript := http.FileServer(http.Dir("../frontend/Script"))
-	http.Handle("/Script/", http.StripPrefix("/Script/", jsScript))
-
-	fs := http.FileServer(http.Dir("../frontend/Web"))
-	http.Handle("/Web/", http.StripPrefix("/Web/", fs))
-
-	assets := http.FileServer(http.Dir("../frontend/assets"))
-	http.Handle("/assets/", http.StripPrefix("/assets/", assets))
+	for _, service := range models.FileServices {
+		fs := http.FileServer(http.Dir("../frontend/" + service))
+		http.Handle("/"+service+"/", http.StripPrefix("/"+service+"/", fs))
+	}
 
 	http.HandleFunc("/", launchGame)
 	fmt.Printf("Starting server at port 8080\n")

@@ -4,6 +4,8 @@ import {
   gameoverHTML,
   skeletonHTML,
   winHTML,
+  blurBackgroundHTML,
+  formHTML,
 } from "./templates.mjs";
 import { collisionBallBrick } from "./collision.mjs";
 import { playSound, removeHeart, addHeart, initHeart } from "./utils.mjs";
@@ -88,9 +90,8 @@ function ball(gameBody, life) {
   ball.style.width = `${b.w}px`;
   ball.style.height = `${b.h}px`;
   ball.style.left = `${b.x}px`;
-  ball.style.marginTop = `-${
-    gameBody.offsetHeight + 0.04 * gameBody.offsetHeight
-  }px`;
+  ball.style.marginTop = `-${gameBody.offsetHeight + 0.04 * gameBody.offsetHeight
+    }px`;
 
   function mover() {
     if (b.x > gameBody.offsetWidth - b.w || b.x < 0) {
@@ -323,7 +324,7 @@ function restartGame() {
   console.log("alert!!!!!!!!!!");
   let second = document.getElementById("secondDiv");
   let life = 3;
-  document.getElementById("ball").remove(); 
+  document.getElementById("ball").remove();
   isGameOver = false;
 
   setTimeout(() => {
@@ -394,50 +395,13 @@ function gameEnd() {
 }
 
 function createForm() {
-  const form = document.createElement("form");
-  form.id = "myform";
-
-  form.style.cssText = `
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    z-index: 9999;
-  `;
+  const form = document.createElement("div");
+  form.innerHTML = formHTML;
 
   const blurBackground = document.createElement("div");
-  blurBackground.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9998;
-  `;
+  blurBackground.innerHTML = blurBackgroundHTML;
 
-  const inputField = document.createElement("input");
-  inputField.type = "text";
-  inputField.placeholder = "Enter your name";
-  form.appendChild(inputField);
-
-  const submitButton = document.createElement("button");
-  submitButton.type = "submit";
-  submitButton.textContent = "Submit";
-
-  const buttonContainer = document.createElement("div");
-  buttonContainer.style.cssText = `
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-  `;
-  buttonContainer.appendChild(submitButton);
-  form.appendChild(buttonContainer);
-
-  form.addEventListener("submit", function (event) {
+  form.querySelector("form").addEventListener("submit", function (event) {
     event.preventDefault();
     form.remove();
     blurBackground.remove();
@@ -448,5 +412,5 @@ function createForm() {
 }
 
 // mbaye listen me: quand tu perd le formulaire est cree et il disparait quand on appuie sur le bouton submit ou enter
-//tu peux aussi appeler la fonction create form pour quand le joueur gagne pour un test plus rapide 
+//tu peux aussi appeler la fonction create form pour quand le joueur gagne pour un test plus rapide
 //va dans la fonction retry et met if life===2

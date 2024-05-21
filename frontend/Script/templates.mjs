@@ -82,6 +82,40 @@ export let skeletonHTML = `
 </div>
 `
 
+export let formHTML = `
+<form id="myform" style="
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+">
+  <input type="text" placeholder="Enter your name">
+  <div style="
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  ">
+    <button type="submit">Submit</button>
+  </div>
+</form>
+`;
+
+export let blurBackgroundHTML = `
+<div style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+"></div>
+`;
+
 export let allBrickHome = [
   [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2],
   [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2],

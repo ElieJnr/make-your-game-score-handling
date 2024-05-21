@@ -201,34 +201,34 @@ body {
     display: flex;
 }
 
-#overlay{
+#overlay {
     position: fixed;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-#pauseMenu{
+#pauseMenu {
     position: fixed;
     bottom: 0;
     width: 80%;
     height: 70%;
     color: white;
     display: grid;
-    grid-template-rows: auto ;
+    grid-template-rows: auto;
 }
 
-#gamepaused{
+#gamepaused {
     position: relative;
 }
 
-#gamepaused img{
+#gamepaused img {
     position: absolute;
     bottom: 0;
     left: 30%;
 }
 
-#restartreplayquit{
+#restartreplayquit {
     display: flex;
     justify-content: center;
     gap: 3%;
@@ -237,26 +237,29 @@ body {
     padding-top: 1%;
 }
 
-#pressh{
+#pressh {
     position: absolute;
     bottom: 10%;
     right: 10%;
     font-size: 1.5em;
 }
-#restart img{
-    width: 100px; 
+
+#restart img {
+    width: 100px;
 }
 
-#replay img{
+#replay img {
     width: 85px;
 }
 
-#restart, #replay {
+#restart,
+#replay {
     padding: 0.3%;
     height: fit-content;
 
 }
-#quit{
+
+#quit {
     display: flex;
     width: 60px;
     height: fit-content;
@@ -264,60 +267,67 @@ body {
     padding: 0.3%;
 }
 
-#restart:hover, #replay:hover, #quit:hover{
+#restart:hover,
+#replay:hover,
+#quit:hover {
     background-color: gray;
     border-radius: 5px;
 }
 
-#finish{
+#finish {
     position: fixed;
     bottom: 0;
     width: 80%;
     height: 75%;
     color: white;
     display: grid;
-    grid-template-rows: 25% 20%  ;
+    grid-template-rows: 25% 20%;
 }
 
-#gameover, #yourscore{
+#gameover,
+#yourscore {
     display: flex;
     justify-content: center;
 }
 
-#gameover img{
+#gameover img {
     width: 50%;
 }
-#yourscore img{
+
+#yourscore img {
     width: 15%;
 }
 
 
-#restartquit{
+#restartquit {
     display: flex;
     justify-content: center;
     /* padding-top: 7%; */
     gap: 5%;
-    
+
 }
 
 
 
-#restartR, #quitQ{
+#restartR,
+#quitQ {
     height: fit-content;
     display: flex;
     padding: 0.5%;
     justify-content: center;
 }
 
-#restartR:hover, #quitQ:hover{
+#restartR:hover,
+#quitQ:hover {
     background-color: gray;
     border-radius: 10px;
 }
-.pausetestcl{
+
+.pausetestcl {
     display: contents;
 }
 
-#myscore{
+#myscore {
     font-family: 'sarpanch';
     display: flex;
     justify-content: center;
@@ -325,13 +335,13 @@ body {
     height: fit-content;
 }
 
-#youwin{
+#youwin {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-#lgbreaker{
+#lgbreaker {
     display: flex;
     justify-content: center;
     margin-top: 5%;
@@ -339,36 +349,37 @@ body {
     width: 100%;
 }
 
-#yourtimeandscore{
+#yourtimeandscore {
     color: white;
     display: flex;
     gap: 50px;
 }
 
-#rq{
+#rq {
     display: flex;
 }
 
-#ywin{
+#ywin {
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
-#rq{
+#rq {
     width: 50%;
     margin-top: 10%;
     display: flex;
     justify-content: space-evenly;
 }
 
-#shorcut{
+#shorcut {
     position: absolute;
     bottom: 1%;
     right: 1%;
 }
 
-#rplay, #qquit{
+#rplay,
+#qquit {
     display: flex;
     justify-content: center;
     padding-top: 5px;
@@ -376,6 +387,27 @@ body {
     border-radius: 5px;
 }
 
-#rplay:hover, #qquit:hover{
+#rplay:hover,
+#qquit:hover {
     background-color: gray;
+}
+
+#form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+}
+
+#blurBackground {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
 }

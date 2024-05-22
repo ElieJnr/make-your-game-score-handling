@@ -6,22 +6,20 @@ import (
 	"os"
 	"scorehandling/backend/models"
 )
-
+//TODO: WriteData doit update les données du fichier score.json et ne pas les écraser
 func WriteData(player models.Player) {
-	jsonData, err := json.MarshalIndent(player, "", "    ")
-	if err != nil {
-		fmt.Println("Error marshaling JSON:", err)
-		return
-	}
-
-	file, err := os.OpenFile("../data/score.json", os.O_WRONLY|os.O_CREATE, 0644)
+	file, err := os.OpenFile("./data/score.json", os.O_WRONLY|os.O_CREATE, 0644)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
 	}
 	defer file.Close()
-
-	_, err = file.Write(jsonData)
+	//on transforme la structure player en json pour l'écrire dans le fichier score.json
+	playerData, err := json.Marshal(player)
+	if err != nil {
+		return 
+	}
+	_, err = file.Write(playerData)
 	if err != nil {
 		fmt.Println("Error writing JSON:", err)
 		return

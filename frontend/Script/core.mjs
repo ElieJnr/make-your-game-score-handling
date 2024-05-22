@@ -1,14 +1,13 @@
 import { init, resetGameState, startGame } from "./gameplay.mjs";
+import { createForm } from "./websocket.js";
 import {
   pauseHTML,
   gameoverHTML,
   skeletonHTML,
   winHTML,
-  blurBackgroundHTML,
-  formHTML,
 } from "./templates.mjs";
 import { collisionBallBrick } from "./collision.mjs";
-import { playSound, removeHeart, addHeart, initHeart } from "./utils.mjs";
+import { playSound, addHeart, initHeart } from "./utils.mjs";
 import { createTwoDiv } from "./buildMap.mjs";
 
 var posX = 0;
@@ -133,7 +132,6 @@ function ball(gameBody, life) {
       var bounceAngle = (normalizedRelativeIntersectionX * Math.PI) / 3;
       b.dx = Math.sin(bounceAngle);
       b.dy = -Math.cos(bounceAngle);
-      // playSound(pop);
     }
 
     b.x += b.dx * b.speed;
@@ -149,7 +147,7 @@ function checkWin() {
     document.getElementsByClassName("setBrick")
   ).length;
   if (NbrOfBricks == 0) {
-    let time = getfinalTime();
+    var  time = getfinalTime();
     playSound(success);
     document.body.innerHTML = winHTML;
     document.getElementById("yourtime").innerHTML = "Your " + time;
@@ -164,22 +162,9 @@ export function gameLoop(gameBody, secondDiv, life) {
   timerControl = startTimer();
   timerControl.resume();
   timerControl = startTimer();
-
-  console.log("ISGAMEOVER", isGameOver);
   var player = build(gameBody, secondDiv);
   var moverBall = ball(gameBody, life);
   var requestId;
-  function pauseGame() {
-    isPaused = true;
-    cancelAnimationFrame(requestId);
-  }
-
-  function resumeGame() {
-    if (!isGameOver) {
-      isPaused = false;
-      requestId = requestAnimationFrame(animationLoop);
-    }
-  }
 
   function animationLoop() {
     if (!isPaused && !isGameOver) {
@@ -188,7 +173,6 @@ export function gameLoop(gameBody, secondDiv, life) {
       moverBall();
     }
     if (isGameOver) {
-      console.log("gameover GAMELOOP");
       gameOver();
       return;
     }
@@ -303,7 +287,8 @@ function getfinalTime() {
 
 function retry(life) {
   life--;
-  console.log("LIFE RETRY", life);
+  var  time = getfinalTime();
+  console.log('FINAL TIME', time);
   if (life == 0) {
     timerControl.reset();
     timerControl.pause();
@@ -312,7 +297,7 @@ function retry(life) {
     document.body.innerHTML = gameoverHTML;
     document.getElementById("myscore").innerHTML = myfinalscore;
     isGameOver = true;
-    createForm();
+    createForm(myfinalscore, time);
     return;
   } else {
     playSound(fail);
@@ -321,14 +306,12 @@ function retry(life) {
 }
 
 function restartGame() {
-  console.log("alert!!!!!!!!!!");
   let second = document.getElementById("secondDiv");
   let life = 3;
   document.getElementById("ball").remove();
   isGameOver = false;
 
   setTimeout(() => {
-    console.log('here!!!!!!!!!!!!!!')
     document.getElementById("hearts").remove();
     initHeart();
     addHeart();
@@ -349,7 +332,6 @@ function recommenceAfterwin() {
 }
 
 function recommence() {
-  // document.getElementById("finish").remove();
   recommenceAfterwin();
 }
 
@@ -361,7 +343,6 @@ function gameOver() {
   document.addEventListener("keydown", function (event) {
     switch (event.key) {
       case "r":
-        // document.getElementById("hearts").remove()
         recommence();
         break;
       case "q":
@@ -394,22 +375,7 @@ function gameEnd() {
   document.getElementById("qquit").addEventListener("click", reloadFromStart);
 }
 
-function createForm() {
-  const form = document.createElement("div");
-  form.innerHTML = formHTML;
 
-  const blurBackground = document.createElement("div");
-  blurBackground.innerHTML = blurBackgroundHTML;
-
-  form.querySelector("form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    form.remove();
-    blurBackground.remove();
-  });
-
-  document.body.appendChild(blurBackground);
-  document.body.appendChild(form);
-}
 
 // mbaye listen me: quand tu perd le formulaire est cree et il disparait quand on appuie sur le bouton submit ou enter
 //tu peux aussi appeler la fonction create form pour quand le joueur gagne pour un test plus rapide

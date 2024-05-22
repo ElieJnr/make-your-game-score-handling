@@ -47,9 +47,6 @@ function handleBrickCollision(brick) {
   score.textContent = Number(score.textContent) + 10;
   time++;
   brick.remove();
-  // setTimeout(() => {
-  //   brick.remove();
-  // }, 17);
 }
 
 function verticaleCollision(ballInfo, rect) {

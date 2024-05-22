@@ -2,8 +2,8 @@ package models
 
 type Player struct {
 	Name  string `json:"name"`
-	Time  int    `json:"time"`
-	Score string `json:"score"`
+	Time  string    `json:"time"`
+	Score int `json:"score"`
 }
 
 var FileServices = []string{"Script", "Web", "assets"}

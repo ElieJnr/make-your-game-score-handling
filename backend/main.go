@@ -1,16 +1,13 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
+	"scorehandling/backend/datamod"
 	"scorehandling/backend/models"
-
-	"github.com/gorilla/websocket"
 )
-
-// var routes = []string{"game", "wsEndpoint"}
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -21,40 +18,15 @@ func reader(w http.ResponseWriter, conn *websocket.Conn) {
 	defer conn.Close()
 
 	for {
-		messageType, message, err := conn.ReadMessage()
+		var player models.Player
+		//on transforme le message en json directement dans la structure player
+		err := conn.ReadJSON(&player)
 		if err != nil {
 			log.Println(err)
 			return
 		}
-		log.Println(string(message))
-
-		if messageType == websocket.TextMessage {
-			saveScore(w, message)
-		}
+		datamod.WriteData(player)
 	}
-}
-
-// Gerer les requests post font enregistrement sur le fichier json pas encore implemente
-func postScore(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("content-type", "application/javascript")
-	var score models.Player
-	err := json.NewDecoder(r.Body).Decode(&score)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-	}
-	// TODO: fonction qui save dans un fichier
-	json.NewEncoder(w).Encode(score)
-}
-
-func saveScore(w http.ResponseWriter, message []byte) {
-	w.Header().Set("content-type", "application/javascript")
-	var score models.Player
-	err := json.Unmarshal(message, &score)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-	// TODO: fonctin qui le l'ecris dans le fichier
 }
 
 func wsEndpoint(w http.ResponseWriter, r *http.Request) {
@@ -76,8 +48,6 @@ func launchGame(w http.ResponseWriter, r *http.Request) {
 	renderTemplate("../frontend/index.html", w, r)
 }
 
-var clients []websocket.Conn
-
 func main() {
 	for _, service := range models.FileServices {
 		fs := http.FileServer(http.Dir("../frontend/" + service))
@@ -90,5 +60,4 @@ func main() {
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
-
 }

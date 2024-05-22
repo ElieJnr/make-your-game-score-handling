@@ -124,13 +124,13 @@ export let allBrickHome = [
   [1, , 1, 2, 1, 2, 1, 2, , , , , 1, 2, 1, 2]
 ]
 
-export let allBrickMap1 = [
+export let allBrickMap13 = [
   [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2],
   [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2],
   [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
 ]
 
-export let allBrickMap13 = [
+export let allBrickMap1 = [
   [, , , , , , , , , , , , , , , ],
   [, , , , , , , , , , , , , , , ],
   [, , , , , , 2, 2, 2, , , , , , , ]

@@ -6,30 +6,44 @@ import (
 	"os"
 	"scorehandling/backend/models"
 )
-//TODO: WriteData doit update les données du fichier score.json et ne pas les écraser
+
+// TODO: WriteData doit update les données du fichier score.json et ne pas les écraser
 func WriteData(player models.Player) {
-	file, err := os.OpenFile("./data/score.json", os.O_WRONLY|os.O_CREATE, 0644)
+	filePath := models.DataFile
+	data, err := GetAllDataFromJSON(filePath)
+	if err != nil {
+		fmt.Println("Error getting data from JSON:", err)
+		return
+	}
+
+	data = append(data, player)
+
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
 	}
 	defer file.Close()
-	//on transforme la structure player en json pour l'écrire dans le fichier score.json
-	playerData, err := json.Marshal(player)
+
+	playerData, err := json.Marshal(data)
 	if err != nil {
-		return 
+		fmt.Println("Error marshaling data:", err)
+		return
 	}
+
 	_, err = file.Write(playerData)
 	if err != nil {
 		fmt.Println("Error writing JSON:", err)
 		return
 	}
-
 }
 
 func GetAllDataFromJSON(filePath string) ([]interface{}, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
+		if os.IsNotExist(err) {
+			return []interface{}{}, nil
+		}
 		return nil, err
 	}
 	defer file.Close()
@@ -42,12 +56,13 @@ func GetAllDataFromJSON(filePath string) ([]interface{}, error) {
 	buffer := make([]byte, fileSize)
 	_, err = file.Read(buffer)
 	if err != nil {
+		fmt.Println("test00")
 		return nil, err
 	}
 
 	var data []interface{}
 	err = json.Unmarshal(buffer, &data)
-	if err != nil {
+	if err != nil && len(data) != 0 {
 		return nil, err
 	}
 

@@ -147,7 +147,7 @@ function checkWin() {
     document.getElementsByClassName("setBrick")
   ).length;
   if (NbrOfBricks == 0) {
-    var  time = getfinalTime();
+    var time = getfinalTime();
     playSound(success);
     document.body.innerHTML = winHTML;
     document.getElementById("yourtime").innerHTML = "Your " + time;
@@ -239,9 +239,8 @@ function startTimer() {
   let myTime;
   const timeText = document.getElementById("timer")
   function updateTime() {
-    let minutes = Math.floor(timer / 60);
-    let seconds = timer % 60;
-    myTime = "Time: " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    let seconds = timer;
+    myTime = "Time: " + (seconds < 10 ? "0" : "") + seconds;
     timeText.textContent = myTime
   }
 
@@ -287,7 +286,7 @@ function getfinalTime() {
 
 function retry(life) {
   life--;
-  var  time = getfinalTime();
+  var time = getfinalTime();
   console.log('FINAL TIME', time);
   if (life == 0) {
     timerControl.reset();

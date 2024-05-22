@@ -15,7 +15,7 @@ export let startHtml = `
   <div id="lifesHearts">
     <div id="life">life:</div>
   </div>
-  <div id="timer">Time: 0:00</div>
+  <div id="timer">Time: 00</div>
   <div id="pause"><img src="assets/pause.svg" alt="" /></div>
 </div>
 `

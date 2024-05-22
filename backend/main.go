@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
 	"scorehandling/backend/datamod"
 	"scorehandling/backend/models"
+
+	"github.com/gorilla/websocket"
 )
 
 var upgrader = websocket.Upgrader{
@@ -14,7 +15,7 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 }
 
-func reader(w http.ResponseWriter, conn *websocket.Conn) {
+func reader(conn *websocket.Conn) {
 	defer conn.Close()
 
 	for {
@@ -37,7 +38,7 @@ func wsEndpoint(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	log.Println("Client successfully connected")
-	reader(w, ws)
+	reader(ws)
 }
 
 func renderTemplate(file string, w http.ResponseWriter, r *http.Request) {
@@ -53,7 +54,6 @@ func main() {
 		fs := http.FileServer(http.Dir("../frontend/" + service))
 		http.Handle("/"+service+"/", http.StripPrefix("/"+service+"/", fs))
 	}
-
 	http.HandleFunc("/", launchGame)
 	http.HandleFunc("/get", wsEndpoint)
 	fmt.Printf("Starting server at port 8080\n")

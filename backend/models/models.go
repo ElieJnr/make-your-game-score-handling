@@ -7,3 +7,5 @@ type Player struct {
 }
 
 var FileServices = []string{"Script", "Web", "assets"}
+
+var DataFile="../data/score.json"

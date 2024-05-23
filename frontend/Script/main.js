@@ -1,7 +1,6 @@
 import { initMap, createTwoDiv, removeOldBricks } from './buildMap.mjs'
 import { homeHtml, allBrickHome } from './templates.mjs'
 import { play } from './gameplay.mjs'
-import { playSound } from "./utils.mjs";
 
 document.addEventListener('DOMContentLoaded', function () {
   start()
@@ -13,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 })
 
-function start () {
+function start() {
   gameBody.innerHTML = homeHtml
   createTwoDiv()
   initMap(allBrickHome)

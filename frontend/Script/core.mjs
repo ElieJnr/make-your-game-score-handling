@@ -288,7 +288,7 @@ function retry(life) {
   life--;
   var time = getfinalTime();
   console.log('FINAL TIME', time);
-  if (life == 0) {
+  if (life == 2) {
     timerControl.reset();
     timerControl.pause();
     playSound(laugh);

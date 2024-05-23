@@ -17,21 +17,14 @@ export function createForm(myfinalscore, myfinaltime) {
     event.preventDefault();
     const name = document.querySelector("input").value;
     // on envoie les donnees au serveur
-    socket.send(JSON.stringify({ name:name, score: +myfinalscore, time: myfinaltime}));
+    socket.send(JSON.stringify({ name: name, score: +myfinalscore, time: myfinaltime }));
     form.remove();
     blurBackground.remove();
   });
 }
-
-const getScore = async () => {
-  try {
-    const response = await fetch("http://localhost:8080/get");
-    if (!response.ok) {
-      throw new Error(`HTTP error status ${response.status}`);
-    }
-    const data = await response.json();
-    // todo : updateDisplay fonction a faire pour
-  } catch (error) {
-    console.log("Erreur l'or de la recuperation des donneees", error);
-  }
+socket.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  console.log(data);
 };
+
+

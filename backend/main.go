@@ -20,13 +20,26 @@ func reader(conn *websocket.Conn) {
 
 	for {
 		var player models.Player
-		//on transforme le message en json directement dans la structure player
 		err := conn.ReadJSON(&player)
 		if err != nil {
 			log.Println(err)
 			return
 		}
 		datamod.WriteData(player)
+
+		data, err := datamod.GetAllDataFromJSON(models.DataFile)
+		if err != nil {
+			return
+		}
+		response := models.Response{
+			Message: data,
+		}
+
+		err = conn.WriteJSON(response)
+		if err != nil {
+			log.Println(err)
+			return
+		}
 	}
 }
 

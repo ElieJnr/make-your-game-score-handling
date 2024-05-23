@@ -65,6 +65,5 @@ func GetAllDataFromJSON(filePath string) ([]interface{}, error) {
 	if err != nil && len(data) != 0 {
 		return nil, err
 	}
-
 	return data, nil
 }

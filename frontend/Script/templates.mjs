@@ -83,25 +83,31 @@ export let skeletonHTML = `
 `
 
 export let formHTML = `
-<form id="myform" style="
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  z-index: 9999;
-">
-  <input type="text" placeholder="Enter your name">
-  <div style="
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-  ">
-    <button type="submit">Submit</button>
+  <div class="allscoreplace">
+  <div class="score-container">
+      <div class="instructions">
+          You are about to access the scoreboard.<br>
+          Please enter a username:
+      </div>
+      <div class="allusername-input">
+          <div class="username-input">
+              <div class="icon user-icon" style="border-right: solid black 1px;">
+                  <img src="assets/person.svg" alt="">
+              </div>
+              <form id="myform">
+                  <input type="text" placeholder="Username Here...">
+                  <div class="icon arrow-icon" style="border-left: solid black 1px;">
+                      <button type="submit" style="border: none; background-color: transparent;"><img src="assets/send.svg" alt=""></button>
+                  </div>
+              </form>
+          </div>
+      </div>
+      <div class="score-info">
+          <div>Your score: 148</div>
+          <div>Your time: 256s</div>
+      </div>
   </div>
-</form>
+</div>
 `;
 
 export let blurBackgroundHTML = `
@@ -111,7 +117,7 @@ export let blurBackgroundHTML = `
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.9);
   z-index: 9998;
 "></div>
 `;

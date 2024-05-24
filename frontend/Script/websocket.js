@@ -16,6 +16,9 @@ export function createForm(myfinalscore, myfinaltime) {
   form.querySelector("form").addEventListener("submit", function (event) {
     event.preventDefault();
     const name = document.querySelector("input").value;
+    if (name) {
+      
+    }
     // on envoie les donnees au serveur
     socket.send(JSON.stringify({ name: name, score: +myfinalscore, time: myfinaltime }));
     form.remove();

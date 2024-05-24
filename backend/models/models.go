@@ -11,4 +11,4 @@ type Response struct {
 
 var FileServices = []string{"Script", "Web", "assets"}
 
-var DataFile = "./backend/datamod/score.json"
+var DataFile = "./score.json"

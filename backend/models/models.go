@@ -2,7 +2,7 @@ package models
 
 type Player struct {
 	Name  string `json:"name"`
-	Time  string `json:"time"`
+	Time  int `json:"time"`
 	Score int    `json:"score"`
 }
 type Response struct {
@@ -11,4 +11,4 @@ type Response struct {
 
 var FileServices = []string{"Script", "Web", "assets"}
 
-var DataFile = "./data/score.json"
+var DataFile = "./score.json"
